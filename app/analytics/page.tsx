@@ -49,10 +49,10 @@ export default function AnalyticsPage() {
   return (
     <>
       <Header title="Analitik" subtitle="Tren keuangan & pola pengeluaran" />
-      <div className="px-6 py-6 max-w-5xl mx-auto space-y-6">
+      <div className="px-4 py-4 sm:px-6 sm:py-6 max-w-5xl mx-auto space-y-6">
 
         {/* Period Picker */}
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <span className="text-xs text-gray-500 mr-1">Periode:</span>
           {(["current", "3m", "6m"] as Period[]).map((p) => (
             <button key={p} onClick={() => setPeriod(p)} className={`rounded-xl px-3 py-1.5 text-xs font-semibold border transition-colors ${period===p?"border-emerald-700 bg-emerald-900/30 text-emerald-400":"border-gray-800 text-gray-500 hover:text-white"}`}>

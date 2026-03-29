@@ -63,7 +63,7 @@ export function Sidebar() {
 export function MobileNav() {
   const pathname = usePathname();
   return (
-    <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-40 flex border-t border-gray-800 bg-gray-950/95 backdrop-blur-sm">
+    <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-40 flex border-t border-gray-800 bg-gray-950/95 backdrop-blur-sm pb-[env(safe-area-inset-bottom)]">
       {navItems.map((item) => {
         const active = pathname.startsWith(item.href);
         return (

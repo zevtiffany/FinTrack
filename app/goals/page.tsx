@@ -225,7 +225,7 @@ export default function GoalsPage() {
   return (
     <>
       <Header title="Target & Investasi" subtitle="Saving goals & simulasi investasi virtual" />
-      <div className="px-6 py-6 max-w-4xl mx-auto">
+      <div className="px-4 py-4 sm:px-6 sm:py-6 max-w-4xl mx-auto">
         {/* Tabs */}
         <div className="flex gap-2 mb-6">
           <button

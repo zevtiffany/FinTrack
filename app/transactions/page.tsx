@@ -87,7 +87,7 @@ export default function TransactionsPage() {
   return (
     <>
       <Header title="Transaksi" subtitle="Semua catatan pemasukan & pengeluaran" />
-      <div className="px-6 py-6 max-w-4xl mx-auto">
+      <div className="px-4 py-4 sm:px-6 sm:py-6 max-w-4xl mx-auto">
         {/* Toolbar */}
         <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-6">
           <div className="flex gap-2 flex-wrap">
@@ -227,9 +227,9 @@ function TxRow({ tx, onEdit, onDelete }: { tx: Transaction; onEdit: ()=>void; on
       <p className={`text-sm font-bold flex-shrink-0 ${tx.type==="income"?"text-emerald-400":"text-red-400"}`}>
         {tx.type==="income"?"+":"-"}Rp {tx.amount.toLocaleString("id-ID")}
       </p>
-      <div className="opacity-0 group-hover:opacity-100 transition-opacity flex gap-1">
-        <button onClick={onEdit} className="text-gray-500 hover:text-blue-400 text-sm px-1.5 py-0.5 rounded" title="Edit">✏️</button>
-        <button onClick={onDelete} className="text-gray-600 hover:text-red-400 text-lg leading-none ml-1" title="Hapus">×</button>
+      <div className="opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity flex flex-col sm:flex-row gap-3 sm:gap-1">
+        <button onClick={onEdit} className="text-gray-400 hover:text-blue-400 text-sm px-2 py-1 rounded border border-gray-800 sm:border-transparent bg-gray-800 sm:bg-transparent" title="Edit">✏️</button>
+        <button onClick={onDelete} className="text-gray-400 hover:text-red-400 text-base px-2 py-1 rounded border border-gray-800 sm:border-transparent bg-gray-800 sm:bg-transparent leading-none ml-0 sm:ml-1" title="Hapus">❌</button>
       </div>
     </div>
   );

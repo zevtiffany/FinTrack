@@ -61,16 +61,16 @@ export default function DashboardPage() {
   return (
     <>
       <Header title="Dashboard" subtitle={today} />
-      <div className="px-6 py-6 max-w-5xl mx-auto">
+      <div className="px-4 py-4 sm:px-6 sm:py-6 max-w-5xl mx-auto">
 
         {/* First-time setup */}
         {!user && (
-          <div className="mb-6 rounded-2xl border border-emerald-800/50 bg-emerald-950/20 p-5 flex items-center justify-between gap-4">
+          <div className="mb-6 rounded-2xl border border-emerald-800/50 bg-emerald-950/20 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
               <p className="text-sm font-semibold text-emerald-400">👋 Selamat datang di FinTrack Teakillah!</p>
               <p className="text-xs text-emerald-400/70 mt-1">Atur profil keuangan agar semua metrik berjalan.</p>
             </div>
-            <button onClick={() => router.push("/settings")} className="flex-shrink-0 rounded-xl bg-emerald-600 px-4 py-2 text-xs font-semibold text-white hover:bg-emerald-500 transition-colors">
+            <button onClick={() => router.push("/settings")} className="w-full sm:w-auto flex-shrink-0 rounded-xl bg-emerald-600 px-4 py-2.5 sm:py-2 text-xs font-semibold text-white hover:bg-emerald-500 transition-colors">
               Atur Sekarang →
             </button>
           </div>
@@ -78,7 +78,7 @@ export default function DashboardPage() {
 
         {/* Notification CTA */}
         {!notifGranted && (
-          <div className="mb-4 flex items-center justify-between gap-4 rounded-2xl border border-gray-800 bg-gray-900 px-5 py-3">
+          <div className="mb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 rounded-2xl border border-gray-800 bg-gray-900 px-4 sm:px-5 py-3">
             <div className="flex items-center gap-3">
               <span className="text-xl">🔔</span>
               <div>
@@ -89,7 +89,7 @@ export default function DashboardPage() {
             <button
               onClick={handleRequestNotif}
               disabled={notifRequesting}
-              className="flex-shrink-0 rounded-xl border border-gray-700 bg-gray-800 px-3 py-1.5 text-xs font-semibold text-white hover:bg-gray-700 transition-colors disabled:opacity-50"
+              className="w-full sm:w-auto mt-1 sm:mt-0 flex-shrink-0 rounded-xl border border-gray-700 bg-gray-800 px-3 py-2 sm:py-1.5 text-xs font-semibold text-white hover:bg-gray-700 transition-colors disabled:opacity-50"
             >
               {notifRequesting ? "..." : "Aktifkan"}
             </button>

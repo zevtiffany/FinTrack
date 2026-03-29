@@ -60,7 +60,7 @@ export default function SettingsPage() {
   return (
     <>
       <Header title="Pengaturan" subtitle="Profil keuangan & konfigurasi aplikasi" />
-      <div className="px-6 py-6 max-w-2xl mx-auto space-y-6">
+      <div className="px-4 py-4 sm:px-6 sm:py-6 max-w-2xl mx-auto space-y-6">
 
         {/* Profil */}
         <Card>

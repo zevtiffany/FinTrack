@@ -44,7 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <OnboardingModal />
           <Sidebar />
           <div className="lg:ml-60">
-            <main className="min-h-screen pb-20 lg:pb-0">{children}</main>
+            <main className="min-h-screen pb-28 lg:pb-0">{children}</main>
           </div>
           <MobileNav />
         </ThemeProvider>

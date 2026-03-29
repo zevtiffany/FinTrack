@@ -11,7 +11,7 @@ export function Header({ title, subtitle }: HeaderProps) {
   const { settings, updateSettings } = useFinanceStore();
 
   return (
-    <header className="flex items-center justify-between px-6 py-4 border-b border-gray-800 bg-gray-950/80 backdrop-blur-sm sticky top-0 z-20">
+    <header className="flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4 border-b border-gray-800 bg-gray-950/80 backdrop-blur-sm sticky top-0 z-20">
       <div>
         <h1 className="text-lg font-bold text-white">{title}</h1>
         {subtitle && <p className="text-xs text-gray-500 mt-0.5">{subtitle}</p>}
