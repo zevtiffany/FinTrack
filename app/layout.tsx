@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { MobileNav, Sidebar } from "@/components/layout/Sidebar";
 import { StoreInitializer } from "@/components/StoreInitializer";
@@ -14,6 +14,12 @@ export const metadata: Metadata = {
     statusBarStyle: "black-translucent",
     title: "FinTrack",
   },
+};
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
