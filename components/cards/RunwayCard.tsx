@@ -10,7 +10,7 @@ export function RunwayCard() {
 
   if (!runway) {
     return (
-      <Card className="col-span-2">
+      <Card className="sm:col-span-2 lg:col-span-full">
         <CardHeader>
           <CardTitle>Survival Runway</CardTitle>
         </CardHeader>
@@ -28,7 +28,7 @@ export function RunwayCard() {
   const progressValue = isInfinite ? 100 : Math.min((runway.days / 180) * 100, 100);
 
   return (
-    <Card variant={variant} glow={glow} className="col-span-2">
+    <Card variant={variant} glow={glow} className="sm:col-span-2 lg:col-span-full">
       <CardHeader>
         <CardTitle>🛸 Survival Runway</CardTitle>
         <Badge
