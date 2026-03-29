@@ -21,5 +21,21 @@
       "type": "image/png",
       "purpose": "any maskable"
     }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot-wide.png",
+      "sizes": "1440x812",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "FinTrack Dashboard"
+    },
+    {
+      "src": "/screenshot-narrow.webp",
+      "sizes": "1280x720",
+      "type": "image/webp",
+      "form_factor": "narrow",
+      "label": "FinTrack Features"
+    }
   ]
 }

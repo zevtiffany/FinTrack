@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Sidebar, MobileNav } from "@/components/layout/Sidebar";
+import { MobileNav, Sidebar } from "@/components/layout/Sidebar";
 import { StoreInitializer } from "@/components/StoreInitializer";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { SWRegister } from "@/components/SWRegister";
 import { OnboardingModal } from "@/components/OnboardingModal";
 
 export const metadata: Metadata = {
@@ -29,6 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="bg-[#0a0a0a] text-white font-sans antialiased">
         <ThemeProvider>
+          <SWRegister />
           <StoreInitializer />
           <OnboardingModal />
           <Sidebar />
