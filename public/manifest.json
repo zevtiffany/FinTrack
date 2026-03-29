@@ -37,13 +37,6 @@
       "type": "image/png",
       "form_factor": "wide",
       "label": "FinTrack Dashboard"
-    },
-    {
-      "src": "/screenshot-narrow.webp",
-      "sizes": "1280x720",
-      "type": "image/webp",
-      "form_factor": "narrow",
-      "label": "FinTrack Features"
     }
   ]
 }

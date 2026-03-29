@@ -3,7 +3,6 @@ import "./globals.css";
 import { MobileNav, Sidebar } from "@/components/layout/Sidebar";
 import { StoreInitializer } from "@/components/StoreInitializer";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { SWRegister } from "@/components/SWRegister";
 import { OnboardingModal } from "@/components/OnboardingModal";
 
 export const metadata: Metadata = {
@@ -27,10 +26,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="theme-color" content="#059669" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <link rel="apple-touch-icon" href="/icon-192.png" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ("serviceWorker" in navigator) {
+                window.addEventListener("load", function() {
+                  navigator.serviceWorker.register("/sw.js");
+                });
+              }
+            `,
+          }}
+        />
       </head>
       <body className="bg-[#0a0a0a] text-white font-sans antialiased">
         <ThemeProvider>
-          <SWRegister />
           <StoreInitializer />
           <OnboardingModal />
           <Sidebar />
