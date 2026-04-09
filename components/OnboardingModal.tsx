@@ -21,7 +21,6 @@ export function OnboardingModal() {
     cityAvgIncome: "",
   });
 
-  // Only show if no user profile AND not dismissed
   if (user || dismissed) return null;
 
   const set = (k: keyof typeof form, v: string) =>
@@ -41,29 +40,65 @@ export function OnboardingModal() {
     setDismissed(true);
   };
 
+  const steps = [
+    { label: "Profil" },
+    { label: "Keuangan" },
+    { label: "Benchmark" },
+  ];
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-      <div className="relative w-full max-w-md rounded-3xl border border-gray-800 bg-gray-950 shadow-2xl overflow-hidden">
-        {/* Progress bar */}
-        <div className="h-1 bg-gray-800">
-          <div
-            className="h-full bg-emerald-500 transition-all duration-500"
-            style={{ width: `${(step / 3) * 100}%` }}
-          />
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4" style={{ background: "rgba(0,0,0,0.85)", backdropFilter: "blur(16px)" }}>
+      <div
+        className="relative w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl overflow-hidden"
+        style={{
+          background: "rgba(10,10,15,0.95)",
+          border: "1px solid rgba(255,255,255,0.08)",
+          boxShadow: "0 0 80px rgba(16,185,129,0.1), 0 20px 60px rgba(0,0,0,0.8)",
+        }}
+      >
+        {/* Top highlight line */}
+        <div className="absolute inset-x-0 top-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(16,185,129,0.6), transparent)" }} />
+
+        {/* Progress steps */}
+        <div className="flex items-center gap-0 px-6 pt-6 pb-4">
+          {steps.map((s, i) => {
+            const idx = i + 1;
+            const done = step > idx;
+            const active = step === idx;
+            return (
+              <div key={i} className="flex items-center flex-1 last:flex-none">
+                <div
+                  className="flex items-center justify-center w-7 h-7 rounded-full text-xs font-bold flex-shrink-0 transition-all duration-300"
+                  style={{
+                    background: done ? "linear-gradient(135deg,#059669,#10b981)"
+                      : active ? "rgba(16,185,129,0.15)"
+                      : "rgba(255,255,255,0.04)",
+                    border: done ? "none"
+                      : active ? "1px solid rgba(16,185,129,0.4)"
+                      : "1px solid rgba(255,255,255,0.08)",
+                    color: done ? "#fff" : active ? "#10b981" : "rgba(255,255,255,0.2)",
+                  }}
+                >
+                  {done ? "✓" : idx}
+                </div>
+                {i < steps.length - 1 && (
+                  <div
+                    className="flex-1 h-px mx-2 transition-all duration-500"
+                    style={{ background: done ? "rgba(16,185,129,0.4)" : "rgba(255,255,255,0.06)" }}
+                  />
+                )}
+              </div>
+            );
+          })}
         </div>
 
-        <div className="p-8">
-          {/* Step indicator */}
-          <p className="text-xs text-gray-500 mb-6 font-medium uppercase tracking-widest">
-            Langkah {step} dari 3
-          </p>
-
+        <div className="px-6 pb-6 space-y-5">
           {step === 1 && (
-            <div className="space-y-6">
+            <div className="space-y-5 animate-in slide-up">
               <div>
-                <div className="text-4xl mb-3">👋</div>
-                <h2 className="text-2xl font-black text-white">Selamat datang!</h2>
-                <p className="text-sm text-gray-400 mt-2">
+                <div className="text-3xl mb-3">👋</div>
+                <h2 className="text-xl font-black text-white">Selamat datang!</h2>
+                <p className="text-sm text-white/40 mt-1.5">
                   FinTrack Teakillah membantu kamu lacak keuangan dengan logika nyata — tanpa AI, tanpa BS.
                 </p>
               </div>
@@ -76,45 +111,54 @@ export function OnboardingModal() {
                 type="text"
               />
               <Button onClick={() => setStep(2)} className="w-full" size="lg">
-                Lanjut →
+                Mulai →
               </Button>
             </div>
           )}
 
           {step === 2 && (
-            <div className="space-y-4">
+            <div className="space-y-4 animate-in slide-up">
               <div>
-                <div className="text-3xl mb-2">💰</div>
-                <h2 className="text-xl font-black text-white">Set anggaran bulanan</h2>
-                <p className="text-xs text-gray-500 mt-1">Bisa diubah kapan saja di Pengaturan</p>
+                <div className="text-2xl mb-2">💰</div>
+                <h2 className="text-lg font-black text-white">Set keuangan bulanan</h2>
+                <p className="text-xs text-white/30 mt-1">Bisa diubah kapan saja di Pengaturan</p>
               </div>
-              <Input
-                id="ob-income"
-                label="Penghasilan Bulanan (Rp)"
-                prefix="Rp"
-                placeholder="5.000.000"
-                type="number"
-                value={form.monthlyIncome}
-                onChange={(e) => set("monthlyIncome", e.target.value)}
-              />
-              <Input
-                id="ob-budget"
-                label="Budget Bulanan / M (Rp)"
-                prefix="Rp"
-                placeholder="4.000.000"
-                type="number"
-                value={form.monthlyBudget}
-                onChange={(e) => set("monthlyBudget", e.target.value)}
-              />
-              <Input
-                id="ob-savings"
-                label="Tabungan Saat Ini / S (Rp)"
-                prefix="Rp"
-                placeholder="10.000.000"
-                type="number"
-                value={form.currentSavings}
-                onChange={(e) => set("currentSavings", e.target.value)}
-              />
+              <div>
+                <Input
+                  id="ob-income"
+                  label="Penghasilan Bulanan (Rp)"
+                  prefix="Rp"
+                  placeholder="5.000.000"
+                  type="number"
+                  value={form.monthlyIncome}
+                  onChange={(e) => set("monthlyIncome", e.target.value)}
+                />
+                <p className="mt-1 text-[10px] text-white/25">💡 Basis utama kalkulasi jatah harian.</p>
+              </div>
+              <div>
+                <Input
+                  id="ob-budget"
+                  label="Batas Budget Belanja per Bulan (Rp) — Opsional"
+                  prefix="Rp"
+                  placeholder="4.000.000"
+                  type="number"
+                  value={form.monthlyBudget}
+                  onChange={(e) => set("monthlyBudget", e.target.value)}
+                />
+                <p className="mt-1 text-[10px] text-white/25">💡 Batas maksimal belanja. Kosongkan jika tidak ada batas khusus.</p>
+              </div>
+              <div>
+                <Input
+                  id="ob-savings"
+                  label="Tabungan Saat Ini (Rp)"
+                  prefix="Rp"
+                  placeholder="10.000.000"
+                  type="number"
+                  value={form.currentSavings}
+                  onChange={(e) => set("currentSavings", e.target.value)}
+                />
+                <p className="mt-1 text-[10px] text-white/25">💡 Untuk menghitung Survival Runway — berapa lama uangmu bisa bertahan.</p>
+              </div>
               <div className="flex gap-3">
                 <Button variant="ghost" onClick={() => setStep(1)} className="flex-1">← Kembali</Button>
                 <Button onClick={() => setStep(3)} className="flex-1">Lanjut →</Button>
@@ -123,23 +167,26 @@ export function OnboardingModal() {
           )}
 
           {step === 3 && (
-            <div className="space-y-4">
+            <div className="space-y-4 animate-in slide-up">
               <div>
-                <div className="text-3xl mb-2">🏙️</div>
-                <h2 className="text-xl font-black text-white">Benchmark kota</h2>
-                <p className="text-xs text-gray-500 mt-1">
-                  Untuk kalkulasi Skor Keuangan vs rata-rata kota kamu
+                <div className="text-2xl mb-2">🏙️</div>
+                <h2 className="text-lg font-black text-white">Benchmark kota</h2>
+                <p className="text-xs text-white/30 mt-1">Untuk Skor Keuangan vs rata-rata kotamu</p>
+              </div>
+              <div>
+                <Input
+                  id="ob-target"
+                  label="Target Tabungan per Bulan (Rp)"
+                  prefix="Rp"
+                  placeholder="1.000.000"
+                  type="number"
+                  value={form.targetSavings}
+                  onChange={(e) => set("targetSavings", e.target.value)}
+                />
+                <p className="mt-1.5 text-[10px] text-white/25 leading-relaxed">
+                  💡 Jumlah ini disisihkan otomatis tiap bulan sebelum jatah harianmu dihitung. Isi sesuai kemampuan, bukan target ambisius.
                 </p>
               </div>
-              <Input
-                id="ob-target"
-                label="Target Tabungan / T (Rp)"
-                prefix="Rp"
-                placeholder="2.000.000"
-                type="number"
-                value={form.targetSavings}
-                onChange={(e) => set("targetSavings", e.target.value)}
-              />
               <Input
                 id="ob-city"
                 label="Rata-rata Penghasilan Kotamu (Rp)"
@@ -157,7 +204,7 @@ export function OnboardingModal() {
               </div>
               <button
                 onClick={() => setDismissed(true)}
-                className="w-full text-center text-xs text-gray-600 hover:text-gray-400 transition-colors mt-2"
+                className="w-full text-center text-xs text-white/15 hover:text-white/30 transition-colors mt-2"
               >
                 Lewati untuk sekarang
               </button>

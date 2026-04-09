@@ -49,7 +49,7 @@ function computeMetrics(transactions: Transaction[], user: User | null): Financi
     .reduce((s, t) => s + t.amount, 0);
 
   const runway = calculateRunway(user.currentSavings, transactions);
-  const allowance = calculateAllowance(user.monthlyBudget, E_used, user.targetSavings, daysLeft, dayOfMonth, totalDays);
+  const allowance = calculateAllowance(user.monthlyIncome, E_used, user.targetSavings, daysLeft, dayOfMonth, totalDays);
   const regret = calculateRegret(monthExpenses);
   const score = calculateFinancialScore(monthIncome || user.monthlyIncome, E_used, user.cityAvgIncome);
   const streak = calculateStreak(transactions);

@@ -34,6 +34,7 @@ export default function SettingsPage() {
   }, [user]);
 
   const handleSave = async () => {
+    if (form.targetSavings > form.monthlyIncome && form.monthlyIncome > 0) return;
     setSaving(true);
     await updateUser(form);
     setSaving(false);
@@ -68,11 +69,26 @@ export default function SettingsPage() {
           <div className="space-y-4 mt-2">
             <Input id="s-name" label="Nama" placeholder="Nama kamu" value={form.name} onChange={(e)=>set("name",e.target.value)} type="text" />
             <Input id="s-income" label="Penghasilan Bulanan (Rp)" prefix="Rp" placeholder="5.000.000" type="number" value={form.monthlyIncome||""} onChange={(e)=>set("monthlyIncome",e.target.value)} />
-            <Input id="s-budget" label="Budget Bulanan / M (Rp)" prefix="Rp" placeholder="4.000.000" type="number" value={form.monthlyBudget||""} onChange={(e)=>set("monthlyBudget",e.target.value)} />
-            <Input id="s-savings" label="Tabungan Saat Ini / S (Rp)" prefix="Rp" placeholder="10.000.000" type="number" value={form.currentSavings||""} onChange={(e)=>set("currentSavings",e.target.value)} />
-            <Input id="s-target" label="Target Tabungan / T (Rp)" prefix="Rp" placeholder="2.000.000" type="number" value={form.targetSavings||""} onChange={(e)=>set("targetSavings",e.target.value)} />
-            <Input id="s-city" label="Rata-rata Penghasilan Kotamu (Rp)" prefix="Rp" placeholder="Jakarta~5jt / Surabaya~4.5jt / Malang~3.5jt" type="number" value={form.cityAvgIncome||""} onChange={(e)=>set("cityAvgIncome",e.target.value)} />
-            <Button id="s-save" onClick={handleSave} loading={saving} className="w-full">{saved?"✅ Tersimpan!":"Simpan Perubahan"}</Button>
+            <p className="text-[10px] text-white/25 -mt-2">💡 Basis utama kalkulasi jatah harian.</p>
+            <Input id="s-budget" label="Batas Budget Belanja Bulanan (Rp) — Opsional" prefix="Rp" placeholder="4.000.000" type="number" value={form.monthlyBudget||""} onChange={(e)=>set("monthlyBudget",e.target.value)} />
+            <p className="text-[10px] text-white/25 -mt-2">💡 Batas maksimal pengeluaran per bulan. Isi sama dengan penghasilan jika tidak ada target khusus.</p>
+            <Input id="s-savings" label="Tabungan Saat Ini (Rp)" prefix="Rp" placeholder="10.000.000" type="number" value={form.currentSavings||""} onChange={(e)=>set("currentSavings",e.target.value)} />
+            <p className="text-[10px] text-white/25 -mt-2">💡 Dipakai untuk menghitung Survival Runway.</p>
+            <Input id="s-target" label="Target Tabungan per Bulan (Rp)" prefix="Rp" placeholder="1.000.000" type="number" value={form.targetSavings||""} onChange={(e)=>set("targetSavings",e.target.value)} />
+            {form.targetSavings > 0 && form.monthlyIncome > 0 && form.targetSavings > form.monthlyIncome && (
+              <p className="text-[11px] text-red-400 -mt-2 font-semibold">
+                ⚠️ Target tabungan tidak boleh melebihi penghasilan bulanan!
+              </p>
+            )}
+            {form.targetSavings > 0 && form.monthlyIncome > 0 && form.targetSavings <= form.monthlyIncome && (
+              <p className="text-[10px] text-emerald-400/50 -mt-2">
+                ✓ Sisa untuk belanja: Rp {(form.monthlyIncome - form.targetSavings).toLocaleString("id-ID")}/bulan
+              </p>
+            )}
+            <p className="text-[10px] text-white/25 -mt-2">💡 Dikunci duluan dari penghasilan sebelum jatah harian dihitung. Jangan isi lebih dari penghasilan.</p>
+            <Input id="s-city" label="Rata-rata Penghasilan Kota (Rp)" prefix="Rp" placeholder="Jakarta~5jt / Surabaya~4.5jt / Malang~3.5jt" type="number" value={form.cityAvgIncome||""} onChange={(e)=>set("cityAvgIncome",e.target.value)} />
+            <p className="text-[10px] text-white/25 -mt-2">💡 Untuk menghitung Skor Keuangan dibanding rata-rata kotamu.</p>
+            <Button id="s-save" onClick={handleSave} loading={saving} disabled={form.targetSavings > form.monthlyIncome && form.monthlyIncome > 0} className="w-full">{saved?"✅ Tersimpan!":"Simpan Perubahan"}</Button>
           </div>
         </Card>
 
